@@ -1,0 +1,7 @@
+I wrote all of this between January and April 2011. I doubt that it's in a working state right now.
+
+I lost interest -- maybe I'll come back at some point.
+
+It's a kernel. I got interrupt handlers working. I stopped working on it when I was in the process of adding threads. I think everything is written by me, but there's plenty of obscure/magic hardware related stuff that I would have been clueless about if not for x86 kernel development websites.
+
+Also, I realize I borrowed some of the error handling idioms from the Windows API. I wish I hadn't.

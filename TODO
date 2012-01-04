@@ -1,0 +1,2 @@
+improve PIC code - seperate module?
+deal with various size concerns, eg, # of sectors to load, floppy vs CD, stack overflows, A20 line?
