@@ -2,6 +2,9 @@ I wrote all of this between January and April 2011. I doubt that it's in a worki
 
 I lost interest -- maybe I'll come back at some point.
 
-It's a kernel. I got interrupt handlers working. I stopped working on it when I was in the process of adding threads. I think everything is written by me, but there's plenty of obscure/magic hardware related stuff that I would have been clueless about if not for x86 kernel development websites.
+It's an x86 kernel. I got interrupt handlers working; the timer defined in main.cc would actually work if this were in a compiling state (or at least, it would work in the Bochs emulator, which is what I use for debugging).
+
+I stopped working on this when I was in the process of adding threads. I think everything is written by me, but there's plenty of obscure/magic hardware related stuff that I would have been clueless about if not for x86 kernel development websites.
 
 Also, I realize I borrowed some of the error handling idioms from the Windows API. I wish I hadn't.
+
