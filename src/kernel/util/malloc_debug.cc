@@ -9,7 +9,7 @@
 // access to the internal KMalloc and KFree functions. Not as pretty as it
 // could be, but simple.
 
-void *__KMalloc(size_t sz);
+void *__KMalloc(unsigned int sz);
 void __KFree(void *ptr);
 
 #define KMalloc_NODEBUG(ptr) __KMalloc(ptr)

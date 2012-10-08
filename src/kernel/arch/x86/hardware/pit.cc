@@ -1,5 +1,5 @@
 #include "precomp.h"
-#include "pit.h"
+#include "x86/pit.h"
 #include "x86/system.h"
 
 KRESULT PIT::SetCounter

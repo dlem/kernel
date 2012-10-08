@@ -3,6 +3,7 @@
 class IConsole;
 class IHardwareManager;
 class IClock;
+class CBaseScheduler;
 
 namespace Global {
   // global objects

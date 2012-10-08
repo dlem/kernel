@@ -7,12 +7,12 @@ DEBUG						=1
 
 
 CPP							= g++
-CPPFLAGS				= -g -fno-exceptions -nostdlib -Wall -Werror \
+CPPFLAGS				= -g -fno-exceptions -nostdlib -Wall -Werror -m32 \
 										-fno-builtin -nostartfiles -nodefaultlibs -fno-rtti\
 										-fno-stack-protector -DKDEBUG=${DEBUG}
 										
 ASMFLAGS				= -w+error -g
-PROJECT_DIR			=./
+PROJECT_DIR				=./
 BUILD_DIR				=$(addprefix $(PROJECT_DIR),build/)
 BIN_DIR					=$(addprefix $(PROJECT_DIR),bin/)
 DEBUG_DIR				=$(BUILD_DIR)
@@ -94,7 +94,7 @@ $(addprefix $(BUILD_DIR),os.elf) : $(addprefix $(BUILD_DIR),os_unstripped.elf)
 extra_clean += $(addprefix $(BUILD_DIR),os.elf)
 
 $(addprefix $(BUILD_DIR),os_unstripped.elf) : $(cc_objects) $(asm_objects)
-	ld -T src/build/linker_script.lds -o $@ $(cc_objects) $(asm_objects)
+	ld -m elf_i386 -T $(addprefix $(PROJECT_DIR)src/build/,linker_script.lds) -o $@ $(cc_objects) $(asm_objects)
 extra_clean += $(addprefix $(BUILD_DIR),os_unstripped.elf) 
 
 $(addprefix $(BIN_DIR),os.iso) : $(addprefix $(BUILD_DIR),os.elf) $(addprefix $(GRUB_DIR),menu.lst) $(addprefix $(GRUB_DIR),stage2_eltorito)

@@ -7,16 +7,16 @@
 #endif
 
 // The functions that do the work. They live in kheap.cc.
-void *__KMalloc(size_t sz);
+void *__KMalloc(unsigned int sz);
 void __KFree(void *ptr);
 
 /**
- * The base KMalloc function - void *__KMalloc(size_t size) - lives in kheap.cc.
+ * The base KMalloc function - void *__KMalloc(unsigned int size) - lives in kheap.cc.
  * Same with __KFree.
  */
 
 // placement new - doesn't need a debug version
-void *operator new(size_t sz, void *ptr)
+void *operator new(unsigned int sz, void *ptr)
 {
   return ptr;
 }
@@ -25,24 +25,24 @@ void *operator new(size_t sz, void *ptr)
 
 // This one isn't called externally. The others get the callers' address, then
 // call here.
-void *__KMalloc(size_t sz, void *callerAddr, const char *file, int line)
+void *__KMalloc(unsigned int sz, void *callerAddr, const char *file, int line)
 {
   void *const allocAddr = __KMalloc(sz); // __KMalloc is the real one
   g_allocTracker.ReportAlloc(callerAddr, allocAddr, sz, file, line);
   return allocAddr;
 }
-void *__KMalloc(size_t sz, const char *file, int line)
+void *__KMalloc(unsigned int sz, const char *file, int line)
 {
   void *const callerAddr = __builtin_return_address(0);
   return __KMalloc(sz, callerAddr, file, line);
 }
-void *operator new(size_t sz, const char *file, int line)
+void *operator new(unsigned int sz, const char *file, int line)
 {
   void *const callerAddr = __builtin_return_address(0);
   return __KMalloc(sz, callerAddr, file, line);
 }
 
-void *operator new [](size_t sz, const char *file, int line)
+void *operator new [](unsigned int sz, const char *file, int line)
 {
   void *const callerAddr = __builtin_return_address(0);
   return __KMalloc(sz, callerAddr, file, line);
@@ -66,11 +66,11 @@ void operator delete [](void *ptr)
 
 #else
 
-void *operator new(size_t sz)
+void *operator new(unsigned int sz)
 {
   return __KMalloc(sz);
 }
-void *operator new [](size_t sz)
+void *operator new [](unsigned int sz)
 {
   return __KMalloc(sz);
 }

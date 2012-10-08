@@ -15,7 +15,7 @@ struct KHEAP_FREELIST {
 
 struct KHEAP_SLABLIST {
   KHEAP_SLABLIST *pNext;
-  size_t nFree;
+  unsigned long nFree;
   KHEAP_FREELIST freeList; // this should really be a pointer...
   void Init() {
     nFree = 0;
@@ -26,8 +26,8 @@ struct KHEAP_SLABLIST {
 
 struct SUPERPAGEALLOCATION {
   void *addr;
-  size_t nPages;
-  void Init(void *_addr, size_t _nPages)
+  unsigned long nPages;
+  void Init(void *_addr, unsigned long _nPages)
   {
     addr = _addr;
     nPages = _nPages;
@@ -41,8 +41,8 @@ struct SUPERPAGEALLOCATION {
 
 struct SALIST {
   SALIST *pNext;
-  size_t nFree;
-  SUPERPAGEALLOCATION saList[(MM_PAGESIZE - sizeof(void *) - sizeof(size_t)) / sizeof(SUPERPAGEALLOCATION)];
+  unsigned long nFree;
+  SUPERPAGEALLOCATION saList[(MM_PAGESIZE - sizeof(void *) - sizeof(unsigned long)) / sizeof(SUPERPAGEALLOCATION)];
   void Init()
   {
     nFree = NUMELMS(saList);
@@ -54,10 +54,10 @@ struct SALIST {
 class MemCache {
 public:
   MemCache() {}
-  void Init(size_t allocSz);
+  void Init(unsigned long allocSz);
   // destructor might be useful for generality or debugging
 
-  size_t GetAllocationSize() const {return m_allocSz;}
+  unsigned long GetAllocationSize() const {return m_allocSz;}
   void *Malloc();
   void Free(void *ptr, bool *pfFound);
 
@@ -67,13 +67,13 @@ private:
   void *SubSlabMalloc(KHEAP_SLABLIST *pSlab);
 
   KHEAP_SLABLIST *m_pSlabList;
-  size_t          m_allocSz;
-  size_t          m_slabCapacity;
-  size_t          m_effectiveSz;
+  unsigned long          m_allocSz;
+  unsigned long          m_slabCapacity;
+  unsigned long          m_effectiveSz;
 
 };
 
-void MemCache::Init(size_t allocSz)
+void MemCache::Init(unsigned long allocSz)
 {
   m_allocSz = allocSz;
   m_effectiveSz = MM_ALIGN(allocSz, sizeof(void *));
@@ -147,8 +147,8 @@ KRESULT MemCache::GetSlab(KHEAP_SLABLIST **pSlab)
   RETURN_FAILED(AllocKPage((void **)pSlab));
   (*pSlab)->Init();
   KHEAP_FREELIST **pFreeList = &((*pSlab)->freeList.pNext);
-  SLOW(size_t nChunks = 0);
-  for(size_t offset = MM_ALIGN(sizeof(KHEAP_SLABLIST), sizeof(void *)); offset <= MM_PAGESIZE - m_effectiveSz; offset += m_effectiveSz)
+  SLOW(unsigned long nChunks = 0);
+  for(unsigned long offset = MM_ALIGN(sizeof(KHEAP_SLABLIST), sizeof(void *)); offset <= MM_PAGESIZE - m_effectiveSz; offset += m_effectiveSz)
   {
     *pFreeList = (KHEAP_FREELIST *)((BYTE *)*pSlab + offset);
     SLOW(nChunks += 1);
@@ -163,10 +163,10 @@ KRESULT MemCache::GetSlab(KHEAP_SLABLIST **pSlab)
 SALIST *pSuperpageAllocations = NULL;
 MemCache memCaches[MM_NCACHES];
 
-void *SuperpageAllocation(size_t sz)
+void *SuperpageAllocation(unsigned long sz)
 {
   // round up to the nearest page
-  const size_t nPages = (sz + MM_PAGESIZE - 1) / MM_PAGESIZE;
+  const unsigned long nPages = (sz + MM_PAGESIZE - 1) / MM_PAGESIZE;
   DASSERT(nPages >= 1);
   void *retval;
 
@@ -243,7 +243,7 @@ void SuperpageFree(void *ptr, bool *pfFound)
   *pfFound = false; // if we got here, we didn't free it
 }
 
-void *SubpageAllocation(size_t sz)
+void *SubpageAllocation(unsigned long sz)
 {
   for(int ixCache = 0; ixCache < MM_NCACHES; ixCache++)
   {
@@ -259,7 +259,7 @@ void *SubpageAllocation(size_t sz)
 /**
  * Here are the main events: the actual implementations of kmalloc and kfree.
  */
-void *__KMalloc(size_t sz)
+void *__KMalloc(unsigned int sz)
 {
   // a zero-sized malloc is probably a bug, and it's awkward from the MM's
   // point of view, but I guess it's a valid argument. I'll just return the

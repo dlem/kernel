@@ -23,4 +23,4 @@
 
 void memset(void *pMem, char val, size_t numBytes);
 void memzero(void *pMem, size_t numBytes);
-void *operator new(size_t sz, void *ptr); // placement new; regular new is declared in kdebug
+void *operator new(unsigned int sz, void *ptr); // placement new; regular new is declared in kdebug

@@ -51,8 +51,8 @@ typedef __KRESULT KRESULT;
 #define KNew new(__FILE__, __LINE__)
 #define KMalloc(sz) __KMalloc(sz, __FILE__, __LINE__)
 
-void *operator new(size_t sz, const char *file, int line) __noinline;
-void *operator new [](size_t sz, const char *file, int line) __noinline;
+void *operator new(unsigned int sz, const char *file, int line) __noinline;
+void *operator new [](unsigned int sz, const char *file, int line) __noinline;
 void *__KMalloc(size_t sz, const char *file, int line) __noinline;
 
 #define KFree(ptr) KFree_DEBUG(ptr)
