@@ -1,7 +1,6 @@
-#include "precomp.h"
-#include "mm.h"
-#include "global.h"
-#include "kstdlib.h"
+#include <mm/mm.h>
+#include <main/global.h>
+#include <main/kstdlib.h>
 
 #define ALLOCKPAGES_SLOW 1
 

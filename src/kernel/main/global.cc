@@ -1,4 +1,3 @@
-#include "precomp.h"
 #include "global.h"
 
 namespace Global {

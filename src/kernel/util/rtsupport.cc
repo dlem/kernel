@@ -7,8 +7,6 @@
  * main.asm.
 **/
 
-#include "precomp.h"
-
 #define ATEXIT_MAX_FUNCS 64
 
 typedef struct tATEXIT_ENTRY {  // valid iff pvDestructor != NULL

@@ -1,5 +1,4 @@
-#include "precomp.h"
-#include "kb.h"
+#include <hardware/kb.h>
 #include "kb_layout.h"
 
 KB_KEY *rgLayouts[KB_LAYOUT_COUNT] =

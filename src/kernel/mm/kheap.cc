@@ -1,6 +1,5 @@
-#include "precomp.h"
-#include "mm.h"
-#include "kstdlib.h"
+#include <mm/mm.h>
+#include <main/kstdlib.h>
 
 #define KHEAP_SLOW 1
 #if KHEAP_SLOW

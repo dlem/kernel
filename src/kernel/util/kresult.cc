@@ -1,10 +1,5 @@
 #if KDEBUG
 
-#include "precomp.h"
-#include "kresult.h"
-#include "kdebug.h"
-
-
 // default constructor
 __KRESULT::__KRESULT() : fChecked(true), iResult(E_UNSET)
 {}

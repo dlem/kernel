@@ -1,9 +1,8 @@
-#include "precomp.h"
-#include "mm.h"
-#include "global.h"
+#include <mm/mm.h>
+#include <main/global.h>
 
 #if KDEBUG
-# include "malloc_debug.h"
+# include <stddefs/malloc_debug.h>
 #endif
 
 // The functions that do the work. They live in kheap.cc.

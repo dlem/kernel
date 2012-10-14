@@ -1,7 +1,5 @@
-#include "precomp.h"
-#include "thread.h"
-#include "arch/thread.h"
-#include "global.h"
+#include <thread/thread.h>
+#include <main/global.h>
 
 // TODO: Implement zombie threads. This may involve threads being some sort of
 // smart pointer. But that's just one option. In the current system, any exiting

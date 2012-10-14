@@ -1,6 +1,5 @@
-#include "precomp.h"
-#include "kstdlib.h"
-#include "global.h"
+#include <main/kstdlib.h>
+#include <main/global.h>
 
 void __debugbreak() {}
 

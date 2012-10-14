@@ -11,7 +11,7 @@ SECTIONS {
   os_image_start = .;
   .text ALIGN(4096) :
   {
-    src/kernel/arch/x86/main/multiboot.asmobj(.text*) /* the multiboot header needs to come first */
+    kernel/arch/x86/multiboot.asmobj(.text*) /* the multiboot header needs to come first */
     *(.text*)
     *(.gnu.linkonce.t*)
   } 

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+export O="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+export OS="$O/src"
+export OO="$O/build"
+export OB="$O/bin"
+export OG="$O/grub"
+export OSO="$OS/build"
+export OOI="$OO/include"
+export OSB="$OS/bin"
+export OSK="$OS/kernel"

@@ -1,5 +1,3 @@
-#include "precomp.h"
-
 // I wasn't really sure where else to put these.
 CASSERT(sizeof(char) == 1);
 CASSERT(sizeof(int8_t) == 1);

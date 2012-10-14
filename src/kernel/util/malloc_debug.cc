@@ -1,8 +1,7 @@
 #if KDEBUG
 
-#include "precomp.h"
-#include "malloc_debug.h"
-#include "kstdlib.h"
+#include <main/kstdlib.h>
+#include <stddefs/malloc_debug.h>
 
 // The tracking system has to bypass itself when it need to allocate memory;
 // otherwise we'll have some serious recursion. Solution: give it direct
